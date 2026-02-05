@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Onmyoji – Playtest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      padding: 16px;
+      background: #f4f4f4;
+    }
+
+    h1, h2 {
+      margin-top: 0;
+    }
+
+    button {
+      padding: 10px 16px;
+      margin: 8px 0;
+      font-size: 16px;
+      width: 100%;
+    }
+
+    .panel {
+      background: white;
+      padding: 12px;
+      margin-bottom: 12px;
+      border-radius: 6px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    pre {
+      background: #eee;
+      padding: 8px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Onmyoji – Rules Playtest</h1>
+
+  <!-- ROUND INFO -->
+  <div class="panel">
+    <h2>Round</h2>
+    <div id="roundInfo"></div>
+  </div>
+
+  <!-- CLUES -->
+  <div class="panel">
+    <h2>Clues</h2>
+    <div id="clueInfo"></div>
+  </div>
+
+  <!-- SPELL SELECTION -->
+  <div class="panel">
+    <h2>Spell Selection</h2>
+    <div id="spellHands"></div>
+    <button id="submitSpellsBtn">Submit Spells</button>
+  </div>
+
+  <!-- COMBAT RESULTS -->
+  <div class="panel hidden" id="combatPanel">
+    <h2>Combat Results</h2>
+    <pre id="combatResults"></pre>
+    <button id="nextRoundBtn">Next Round</button>
+  </div>
+
+  <!-- GAME OVER -->
+  <div class="panel hidden" id="gameOverPanel">
+    <h2 id="gameOverTitle"></h2>
+    <p id="gameOverText"></p>
+  </div>
+
+  
+  <!-- MAIN SCRIPT -->
+  <script type="module">
+    import { startRound, submitSpells } from "./logic/roundFlow.js";
+    import { gameState, initGame, advanceRound } from "./gameState.js";
+
+    const roundInfo = document.getElementById("roundInfo");
+    const clueInfo = document.getElementById("clueInfo");
+    const submitBtn = document.getElementById("submitSpellsBtn");
+    const combatPanel = document.getElementById("combatPanel");
+    const combatResults = document.getElementById("combatResults");
+    const nextRoundBtn = document.getElementById("nextRoundBtn");
+
+    
+    (async function bootGame() {
+      initGame(4);
+      await startRound();
+      renderRound();
+    })();
+
+
+    submitBtn.onclick = () => {
+      // TEMP: auto-pick first spell from each hand
+      const submitted = gameState.spellHands.map(entry => ({
+        playerId: entry.playerId,
+        spell: entry.hand[0]
+      }));
+
+      submitSpells(submitted);
+      combatPanel.classList.remove("hidden");
+    };
+
+    
+    nextRoundBtn.onclick = () => {
+      combatPanel.classList.add("hidden");
+      startRound();
+      renderRound();
+    };
+
+    function renderRound() {
+      roundInfo.textContent = `Round ${gameState.round}`;
+
+      if (!gameState.currentYokai) {
+        clueInfo.textContent = "Yokai not initialized.";
+        return;
+      }
+
+      clueInfo.innerHTML = `
+        Season: ${gameState.currentYokai.season}<br>
+        Area: ${gameState.currentYokai.area}<br>
+        Weather: ${gameState.currentYokai.weather}
+      `;
+
+      renderSpellHands();
+    }
+
+    function renderSpellHands() {
+      const container = document.getElementById("spellHands");
+      container.innerHTML = "";
+
+      gameState.spellHands.forEach(entry => {
+        const div = document.createElement("div");
+        div.innerHTML = `
+          <strong>Player ${entry.playerId + 1}</strong>
+          <ul>
+            ${entry.hand.map(spell => `<li>${spell.name} (${spell.dice})</li>`).join("")}
+          </ul>
+        `;
+        container.appendChild(div);
+      });
+      
+      
+    }
+  </script>
+
+</body>
+</html>
