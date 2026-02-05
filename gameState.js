@@ -10,7 +10,7 @@ export const gameState = {
   players: [],
   currentYokai: null,
 
-  spellHands: [],
+  spellHands: {},
 
   // Used by some UI modules
   lastCombatResult: null
