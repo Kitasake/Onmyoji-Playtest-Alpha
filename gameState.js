@@ -11,6 +11,7 @@ export const gameState = {
   currentYokai: null,
 
   spellHands: {},
+  selectedSpells: {}
 
   // Used by some UI modules
   lastCombatResult: null
