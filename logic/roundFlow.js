@@ -27,7 +27,7 @@ export async function startRound() {
 
   });
 
-  showCluesOnly();
+  //showCluesOnly();
 }
 
 /**
