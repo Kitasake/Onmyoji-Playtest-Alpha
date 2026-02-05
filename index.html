@@ -101,10 +101,12 @@
 
     submitBtn.onclick = () => {
       // TEMP: auto-pick first spell from each hand
-      const submitted = gameState.spellHands.map(entry => ({
-        playerId: entry.playerId,
-        spell: entry.hand[0]
-      }));
+      const submitted = gameState.spellHands
+  .filter(entry => entry.hand.length > 0)
+  .map(entry => ({
+    playerId: entry.playerId,
+    spell: entry.hand[0]
+  }));
 
       submitSpells(submitted);
       combatPanel.classList.remove("hidden");
