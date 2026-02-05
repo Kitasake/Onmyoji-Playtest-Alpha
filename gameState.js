@@ -1,7 +1,7 @@
 // gameState.js
 // Central source of truth for the playtest app
 
-import { createPlayers, applyOverflowDamage, areAllPlayersDefeated } from "./playerState.js";
+import { createPlayers, applyOverflowDamage, areAllPlayersDefeated } from "./logic/playerState.js";
 
 export const gameState = {
   round: 1,
