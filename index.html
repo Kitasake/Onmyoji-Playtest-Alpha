@@ -7,6 +7,10 @@
 
   <style>
     body {
+      <p id="debug" style="font-family: monospace; color: red;">
+  Booting…
+</p>
+
       font-family: system-ui, sans-serif;
       padding: 16px;
       background: #f4f4f4;
@@ -81,7 +85,28 @@
   
   <!-- MAIN SCRIPT -->
   <script type="module">
-    import { startRound, submitSpells } from "./logic/roundFlow.js";
+    
+  const debug = document.getElementById("debug");
+
+  debug.textContent = "JS loaded";
+
+  import { initGame } from "./gameState.js";
+  import { startRound } from "./logic/roundFlow.js";
+
+  (async () => {
+    debug.textContent = "Calling initGame()";
+    initGame(4);
+
+    debug.textContent = "Calling startRound()";
+    await startRound();
+
+    debug.textContent = "SUCCESS: startRound finished";
+  })();
+
+
+
+    
+    /**import { startRound, submitSpells } from "./logic/roundFlow.js";
     import { gameState, initGame } from "./gameState.js";
 
     const roundInfo = document.getElementById("roundInfo");
@@ -150,7 +175,7 @@
         `;
         container.appendChild(div);
       });
-      
+      **/
       
     }
   </script>
