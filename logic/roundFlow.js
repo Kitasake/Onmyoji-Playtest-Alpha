@@ -42,7 +42,7 @@ export function submitSpells(submittedSpells) {
   );
 
   gameState.lastCombatResult = combatResult;
-  revealCombatResults(combatResult);
+  //revealCombatResults(combatResult);
 
   const allPlayersDefeated = resolvePlayerDamage(
     combatResult.overflowDamage
