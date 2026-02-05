@@ -8,7 +8,7 @@ import { resolveCombat } from "./combatResolution.js";
 /**
  * Starts a new round
  */
-export function startRound() {
+export async function startRound() {
   await loadYokaiEncyclopedia();
   
   gameState.currentYokai = selectRandomYokai();
