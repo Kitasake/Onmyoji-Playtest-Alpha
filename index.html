@@ -48,16 +48,47 @@
 <p id="debug" style="font-family: monospace; color: red;">
   Booting…
 </p>
-  <button onclick="document.body.style.background='red'">
-  Click me
-</button>
+  
+  <h1>Onmyoji – Playtest</h1>
+
+  <!-- ROUND INFO -->
+  <div class="panel">
+    <h2>Round</h2>
+    <div id="roundInfo"></div>
+  </div>
+
+  <!-- CLUES -->
+  <div class="panel">
+    <h2>Clues</h2>
+    <div id="clueInfo"></div>
+  </div>
+
+  <!-- SPELL SELECTION -->
+  <div class="panel">
+    <h2>Spell Selection</h2>
+    <div id="spellHands"></div>
+    <button id="submitSpellsBtn">Submit Spells</button>
+  </div>
+
+  <!-- COMBAT RESULTS -->
+  <div class="panel hidden" id="combatPanel">
+    <h2>Combat Results</h2>
+    <pre id="combatResults"></pre>
+    <button id="nextRoundBtn">Next Round</button>
+  </div>
+
+  <!-- GAME OVER -->
+  <div class="panel hidden" id="gameOverPanel">
+    <h2 id="gameOverTitle"></h2>
+    <p id="gameOverText"></p>
+  </div>
 
 
   
   <!-- MAIN SCRIPT -->
   <script type="module">
     
-  const debug = document.getElementById("debug");
+  /**const debug = document.getElementById("debug");
 
   debug.textContent = "JS loaded";
 
@@ -73,11 +104,11 @@
 
     debug.textContent = "SUCCESS: startRound finished";
   })();
-
+**/
 
 
     
-    /**import { startRound, submitSpells } from "./logic/roundFlow.js";
+    import { startRound, submitSpells } from "./logic/roundFlow.js";
     import { gameState, initGame } from "./gameState.js";
 
     const roundInfo = document.getElementById("roundInfo");
@@ -146,7 +177,7 @@
         `;
         container.appendChild(div);
       });
-      **/
+      
       
     }
   </script>
