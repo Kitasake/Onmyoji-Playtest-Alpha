@@ -10,7 +10,7 @@ let yokaiEncyclopedia = null;
 export async function loadYokaiEncyclopedia() {
   if (yokaiEncyclopedia) return yokaiEncyclopedia;
 
-  const response = await fetch("../data/yokaiEncylopedia.json");
+  const response = await fetch("../data/yokaiEncyclopedia.json");
   if (!response.ok) {
     throw new Error("Failed to load yokaiEncyclopedia.json");
   }
