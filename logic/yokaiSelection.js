@@ -17,6 +17,7 @@ export async function loadYokaiEncyclopedia() {
 
   yokaiEncyclopedia = await response.json();
   return yokaiEncyclopedia;
+}
 /**
  * Selects a random Yokai from the encyclopedia
  * @returns {Object} full yokai object
