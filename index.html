@@ -127,17 +127,35 @@
 
 
     submitBtn.onclick = () => {
-      // TEMP: auto-pick first spell from each hand
-      const submitted = gameState.spellHands
-  .filter(entry => entry.hand.length > 0)
-  .map(entry => ({
-    playerId: entry.playerId,
-    spell: entry.hand[0]
-  }));
+  const submittedSpells = [];
 
-      submitSpells(submitted);
-      combatPanel.classList.remove("hidden");
-    };
+  Object.entries(gameState.spellHands).forEach(
+    ([playerId, handState]) => {
+
+      const selectedIndexes =
+        gameState.selectedSpells[playerId];
+
+      // Collect spells
+      selectedIndexes.forEach(index => {
+        submittedSpells.push({
+          playerId,
+          spell: handState.hand[index]
+        });
+      });
+
+      // REMOVE spells from hand (descending index!)
+      selectedIndexes
+        .sort((a, b) => b - a)
+        .forEach(i => {
+          const [spell] = handState.hand.splice(i, 1);
+          handState.discard.push(spell);
+        });
+    }
+  );
+
+  submitSpells(submittedSpells);
+};
+
 
     
     nextRoundBtn.onclick = async () => {
@@ -172,13 +190,38 @@
         div.innerHTML = `
           <strong>Player ${entry.playerId + 1}</strong>
           <ul>
-            ${entry.hand.map(spell => `<li>${spell.name} (${spell.dice})</li>`).join("")}
+            
+          const selected = gameState.selectedSpells[entry.playerId] || [];
+
+          entry.hand.map((spell, index) => {
+          const isSelected = selected.includes(index);
+
+          return `
+          <li>
+           <button
+           onclick="selectSpell(${entry.playerId}, ${index})"
+             ${isSelected ? "disabled" : ""}
+           >
+              ${spell.name} (${spell.dice})
+        <button>
+          <li>
+          `;
+          }).join("")
           </ul>
         `;
         container.appendChild(div);
       });
       
-      
+      window.selectSpell = function(playerId, spellIndex) {
+        const selected = gameState.selectedSpells[playerId];
+
+        if (selected.length >= 3) return;
+
+        if (selected.includes(spellIndex)) return;
+
+        selected.push(spellIndex);
+        renderSpellHands();
+      };
     }
   </script>
 
