@@ -111,9 +111,9 @@
     };
 
     
-    nextRoundBtn.onclick = () => {
+    nextRoundBtn.onclick = async () => {
       combatPanel.classList.add("hidden");
-      startRound();
+      await startRound();
       renderRound();
     };
 
