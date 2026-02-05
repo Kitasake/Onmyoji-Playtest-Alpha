@@ -24,7 +24,7 @@ export async function loadYokaiEncyclopedia() {
  */
 export function selectRandomYokai() {
   if (!yokaiEncyclopedia) {
-    throw new Error("Yokai encyclopediea not loaded");
+    throw new Error("Yokai encyclopedia not loaded");
   }
    
   const index = Math.floor(Math.random() * yokaiEncyclopedia.length);
