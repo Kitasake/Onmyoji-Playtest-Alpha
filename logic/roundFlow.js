@@ -12,20 +12,23 @@ export async function startRound() {
   await loadYokaiEncyclopedia();
   
   gameState.currentYokai = selectRandomYokai();
-  gameState.spellHands = [];
+  gameState.selectedSpells ={};
 
   // Generate spell hand per player
   gameState.players.forEach(player => {
     if (!player.alive) return;
 
-    const handState = generateSpellHand(player.element);
-    gameState.spellHands.push({
-      playerId: player.id,
-      hand: handState.hand,
-      element: player.element
-    });
+    gameState.selectedSpells[player.id] = [];
 
-  });
+    if (!gameState.spellHands[player.id]) {
+      gameState.spellHands[player.id] = generateSpellHand(player.element);
+    }
+
+    
+    });
+  renderSpellHands();
+
+  };
 
   showCluesOnly();
 }
