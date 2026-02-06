@@ -134,8 +134,10 @@
   playerId = Number(playerId);
 
 
-      const selectedIndexes =
-        gameState.selectedSpells[playerId];
+      const selectedIndexes = gameState.selectedSpells[playerId] || [];
+
+if (selectedIndexes.length === 0) return;
+
 
       // Collect spells
       selectedIndexes.forEach(index => {
