@@ -26,9 +26,7 @@ export async function startRound() {
 
     
     });
-  renderSpellHands();
-
-  };
+  
 
   showCluesOnly();
 }
