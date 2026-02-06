@@ -16,16 +16,18 @@ export async function startRound() {
 
   // Generate spell hand per player
   gameState.players.forEach(player => {
-    if (!player.alive) return;
+  if (!player.alive) return;
 
-    gameState.selectedSpells[player.id] = [];
+  // RESET selection every round (CRITICAL)
+  gameState.selectedSpells[player.id] = [];
 
-    if (!gameState.spellHands[player.id]) {
-      gameState.spellHands[player.id] = generateSpellHand(player.element);
-    }
+  // ONLY generate hand once
+  if (!gameState.spellHands[player.id]) {
+    gameState.spellHands[player.id] =
+      generateSpellHand(player.element);
+  }
+});
 
-    
-    });
   
 
   showCluesOnly();
