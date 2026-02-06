@@ -131,6 +131,8 @@
 
   Object.entries(gameState.spellHands).forEach(
     ([playerId, handState]) => {
+  playerId = Number(playerId);
+
 
       const selectedIndexes =
         gameState.selectedSpells[playerId];
@@ -182,47 +184,61 @@
     }
 
     function renderSpellHands() {
-      const container = document.getElementById("spellHands");
-      container.innerHTML = "";
+  const container = document.getElementById("spellHands");
+  container.innerHTML = "";
 
-      gameState.spellHands.forEach(entry => {
-        const div = document.createElement("div");
-        div.innerHTML = `
-          <strong>Player ${entry.playerId + 1}</strong>
-          <ul>
-            
-          const selected = gameState.selectedSpells[entry.playerId] || [];
+  Object.values(gameState.spellHands).forEach(handState => {
+    const selected = gameState.selectedSpells[handState.playerId] || [];
 
-          entry.hand.map((spell, index) => {
-          const isSelected = selected.includes(index);
+    const spellListHTML = handState.hand
+      .map((spell, index) => {
+        const isSelected = selected.includes(index);
 
-          return `
+        return `
           <li>
-           <button
-           onclick="selectSpell(${entry.playerId}, ${index})"
-             ${isSelected ? "disabled" : ""}
-           >
+            <button
+              class="spell-btn"
+              data-player="${handState.playerId}"
+              data-index="${index}"
+              ${isSelected ? "disabled" : ""}
+            >
               ${spell.name} (${spell.dice})
-        <button>
-          <li>
-          `;
-          }).join("")
-          </ul>
+            </button>
+          </li>
         `;
-        container.appendChild(div);
-      });
-      
-      window.selectSpell = function(playerId, spellIndex) {
-        const selected = gameState.selectedSpells[playerId];
+      })
+      .join("");
 
-        if (selected.length >= 3) return;
+    const div = document.createElement("div");
+    div.innerHTML = `
+      <strong>Player ${handState.playerId + 1}</strong>
+      <ul>${spellListHTML}</ul>
+    `;
 
-        if (selected.includes(spellIndex)) return;
+    container.appendChild(div);
+  });
 
-        selected.push(spellIndex);
-        renderSpellHands();
-      };
-    }
+  document.querySelectorAll(".spell-btn").forEach(btn => {
+    btn.onclick = () => {
+      const playerId = Number(btn.dataset.player);
+      const index = Number(btn.dataset.index);
+      selectSpell(playerId, index);
+    };
+  });
+}
+
+    function selectSpell(playerId, spellIndex) {
+  const selected = gameState.selectedSpells[playerId];
+
+  if (!selected) return;
+  if (selected.length >= 3) return;
+  if (selected.includes(spellIndex)) return;
+
+  selected.push(spellIndex);
+  renderSpellHands();
+}
+
+
   </script>
 
 </body>
