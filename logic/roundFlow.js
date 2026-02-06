@@ -12,7 +12,7 @@ export async function startRound() {
   await loadYokaiEncyclopedia();
   
   gameState.currentYokai = selectRandomYokai();
-  gameState.selectedSpells ={};
+
 
   // Generate spell hand per player
   gameState.players.forEach(player => {
