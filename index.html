@@ -160,7 +160,11 @@ if (selectedIndexes.length === 0) return;
   submitSpells(submittedSpells);
 
   combatPanel.classList.remove("hidden");
-combatResults.textContent = gameState.combatLog.join("\n");
+combatResults.textContent =
+  gameState.lastCombatResult
+    ? JSON.stringify(gameState.lastCombatResult, null, 2)
+    : "No combat results";
+
 
 };
 
