@@ -25,11 +25,13 @@ export function initGame(playerCount = 4) {
   gameState.round = 1;
   gameState.players = createPlayers(playerCount);
   gameState.currentYokai = null;
-  gameState.spellHands = [];
-  combatResults.textContent =
-  JSON.stringify(gameState.lastCombatResult, null, 2);
 
+  // MUST be an object, not an array
+  gameState.spellHands = {};
+  gameState.selectedSpells = {};
+  gameState.lastCombatResult = null;
 }
+
 
 /**
  * Advances the round counter
