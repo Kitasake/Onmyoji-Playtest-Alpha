@@ -197,36 +197,41 @@ combatResults.textContent =
   const container = document.getElementById("spellHands");
   container.innerHTML = "";
 
-  Object.values(gameState.spellHands).forEach(handState => {
-    const selected = gameState.selectedSpells[handState.playerId] || [];
+  Object.entries(gameState.spellHands).forEach(
+    ([playerId, handState]) => {
+      playerId = Number(playerId);
 
-    const spellListHTML = handState.hand
-      .map((spell, index) => {
-        const isSelected = selected.includes(index);
+      const selected =
+        gameState.selectedSpells[playerId] ??= [];
 
-        return `
-          <li>
-            <button
-              class="spell-btn"
-              data-player="${handState.playerId}"
-              data-index="${index}"
-              ${isSelected ? "disabled" : ""}
-            >
-              ${spell.name} (${spell.dice})
-            </button>
-          </li>
-        `;
-      })
-      .join("");
+      const spellListHTML = handState.hand
+        .map((spell, index) => {
+          const isSelected = selected.includes(index);
 
-    const div = document.createElement("div");
-    div.innerHTML = `
-      <strong>Player ${handState.playerId + 1}</strong>
-      <ul>${spellListHTML}</ul>
-    `;
+          return `
+            <li>
+              <button
+                class="spell-btn"
+                data-player="${playerId}"
+                data-index="${index}"
+                ${isSelected ? "disabled" : ""}
+              >
+                ${spell.name} (${spell.dice})
+              </button>
+            </li>
+          `;
+        })
+        .join("");
 
-    container.appendChild(div);
-  });
+      const div = document.createElement("div");
+      div.innerHTML = `
+        <strong>Player ${playerId + 1}</strong>
+        <ul>${spellListHTML}</ul>
+      `;
+
+      container.appendChild(div);
+    }
+  );
 
   document.querySelectorAll(".spell-btn").forEach(btn => {
     btn.onclick = () => {
@@ -236,6 +241,7 @@ combatResults.textContent =
     };
   });
 }
+
 
     function selectSpell(playerId, spellIndex) {
   const selected =
