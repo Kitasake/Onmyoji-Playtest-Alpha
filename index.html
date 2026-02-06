@@ -238,9 +238,9 @@ combatResults.textContent =
 }
 
     function selectSpell(playerId, spellIndex) {
-  const selected = gameState.selectedSpells[playerId];
+  const selected =
+  gameState.selectedSpells[playerId] ??= [];
 
-  if (!selected) return;
   if (selected.length >= 3) return;
   if (selected.includes(spellIndex)) return;
 
