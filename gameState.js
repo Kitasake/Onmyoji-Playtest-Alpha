@@ -26,7 +26,9 @@ export function initGame(playerCount = 4) {
   gameState.players = createPlayers(playerCount);
   gameState.currentYokai = null;
   gameState.spellHands = [];
-  gameState.lastCombatResult = null;
+  combatResults.textContent =
+  JSON.stringify(gameState.lastCombatResult, null, 2);
+
 }
 
 /**
