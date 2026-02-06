@@ -39,7 +39,7 @@ export function buildSpellDeck(element) {
  * @param {number} handSize - default 5
  * @returns {Object}
  */
-export function generateSpellHand(element, handSize = 5) {
+export function generateSpellHand(element, handSize = 9) {
   const deck = buildSpellDeck(element);
 
   if (deck.length < handSize) {
