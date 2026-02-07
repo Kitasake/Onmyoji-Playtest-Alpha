@@ -1,6 +1,6 @@
 // elementBonus.js
 
-const strengthMap = {
+export const strengthMap = {
   Fire: "Ice",
   Ice : "Lightning",
   Lightning : "Wind",
@@ -36,12 +36,6 @@ export function qualifiesForElementBonus(spell, yokai) {
   return false;
 }
 
-export const strengthMap = {
-  Fire: "Ice",
-  Ice: "Lightning",
-  Lightning: "Wind",
-  Wind: "Fire"
-};
 
 export function isWeakAgainst(spellElement, yokaiElement) {
   // spell is weak if yokai is strong against it
