@@ -165,6 +165,9 @@ combatResults.textContent =
     ? JSON.stringify(gameState.lastCombatResult, null, 2)
     : "No combat results";
 
+      if (gameState.gameOver) {
+        showGameOverScreen(gameState.victory);
+      }
 
 };
 
