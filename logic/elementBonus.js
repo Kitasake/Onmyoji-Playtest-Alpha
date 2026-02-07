@@ -1,10 +1,10 @@
 // elementBonus.js
 
 const weaknessMap = {
-  Fire: "Wind",
-  Wind: "Lightning",
-  Lightning: "Ice",
-  Ice: "Fire"
+  Fire: "Ice",
+  Wind: "Fire",
+  Lightning: "Wind",
+  Ice: "Lightning"
 };
 
 /**
