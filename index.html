@@ -161,10 +161,10 @@ difficultyPanel
         rules: collectRules()
       });
 
-  initPlayerEncyclopedia();   // ← ADD THIS
+  await initPlayerEncyclopedia();   
   await startRound();
   renderRound();
-  await renderEncyclopedia();       // ← ADD THIS
+  await renderEncyclopedia();      
  };
 });
 
