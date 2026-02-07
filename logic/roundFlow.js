@@ -48,11 +48,13 @@ export function submitSpells(submittedSpells) {
   revealCombatResults(combatResult);
 
   const playerDamage = combatResult.remainingHP;
-  if (playerDamage > 0 {
+
+  let allPlayersDefeated = false;
+  
+  if (playerDamage > 0) {
     resolvePlayerDamage(playerDamage);
   }
-  const allPlayersDefeated = resolvePlayerDamage(playerDamage);
-  
+   
 
   if (allPlayersDefeated) {
     endGame(false);
