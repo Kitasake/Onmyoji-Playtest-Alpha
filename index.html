@@ -164,7 +164,7 @@ difficultyPanel
   initPlayerEncyclopedia();   // ← ADD THIS
   await startRound();
   renderRound();
-  await renderEncyclopedia();       // ← ADD THIS
+  renderEncyclopedia();       // ← ADD THIS
 };
 
     
@@ -226,7 +226,7 @@ combatResults.textContent =
       if (gameState.gameOver) {
         showGameOverScreen(gameState.victory);
       }
-      await renderEncyclopedia();
+      renderEncyclopedia();
 
 };
 
@@ -356,7 +356,7 @@ combatResults.textContent =
 
   await startRound();
   renderRound();
-  await renderEncyclopedia(); // encyclopedia stays filled
+  renderEncyclopedia(); // encyclopedia stays filled
 };
 
 
