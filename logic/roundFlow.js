@@ -47,9 +47,12 @@ export function submitSpells(submittedSpells) {
   gameState.lastCombatResult = combatResult;
   revealCombatResults(combatResult);
 
-  const allPlayersDefeated = resolvePlayerDamage(
-    combatResult.overflowDamage
-  );
+  const playerDamage = combatResult.remainingHP;
+  if (playerDamage > 0 {
+    resolvePlayerDamage(playerDamage);
+  }
+  const allPlayersDefeated = resolvePlayerDamage(playerDamage);
+  
 
   if (allPlayersDefeated) {
     endGame(false);
