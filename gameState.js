@@ -2,6 +2,7 @@
 // Central source of truth for the playtest app
 
 import { createPlayers } from "./logic/playerState.js";
+import { BASE_RULES } from "./logic/rulesets.js";
 
 export const gameState = {
   round: 1,
