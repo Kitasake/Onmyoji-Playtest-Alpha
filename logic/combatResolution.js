@@ -66,6 +66,34 @@ export function resolveCombat(yokai, playerActions, roundNumber) {
 
   const netDamageToYokai = Math.max(0, totalAttackDamage + totalDefense);
   const remainingHP = Math.max(0, yokaiHP - netDamageToYokai);
+
+  function resolveDefense(spells, yokai) {
+  return spells.filter(spell => {
+    if (!spell.isDefense) return false;
+
+    const rule = gameState.rules.defenseElementRestriction;
+
+    if (rule === "none") return true;
+    if (rule === "match") return spell.element === yokai.element;
+
+    return true;
+  });
+}
+
+  function applyResistance(totalAttackDice, spells, yokai) {
+  const rule = gameState.rules.resistancePenalty;
+
+  if (!rule.enabled) return totalAttackDice;
+
+  const hasWeakAttack = spells.some(
+    s => s.isAttack && s.element === yokai.strongAgainst
+  );
+
+  if (!hasWeakAttack) return totalAttackDice;
+
+  return Math.max(0, totalAttackDice - rule.removeDice);
+}
+
   
 
   return {
