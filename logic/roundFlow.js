@@ -4,6 +4,7 @@ import { gameState, advanceRound, resolvePartyDamage } from "../gameState.js";
 import { selectRandomYokai, loadYokaiEncyclopedia } from "./yokaiSelection.js";
 import { generateSpellHand } from "./spellHand.js";
 import { resolveCombat } from "./combatResolution.js";
+import { revealYokaiInfo} from "../data/playerEncyclopedia.js";
 
 /**
  * Starts a new round
@@ -41,7 +42,11 @@ export function submitSpells(submittedSpells) {
   const combatResult = resolveCombat(
     gameState.currentYokai,
     submittedSpells,
-    gameState.round
+    gameState.round,
+    revealYokaiInfo(
+      gameState.currentYokai,
+      gameState.round
+      );
   );
 
   gameState.lastCombatResult = combatResult;
