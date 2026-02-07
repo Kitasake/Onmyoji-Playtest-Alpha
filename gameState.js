@@ -7,6 +7,9 @@ export const gameState = {
   round: 1,
   maxRounds: 4,
 
+  partyHP: 80,
+  maxPartyHP: 80;
+
   players: [],
   currentYokai: null,
 
@@ -25,6 +28,8 @@ export function initGame(playerCount = 4) {
   gameState.round = 1;
   gameState.players = createPlayers(playerCount);
   gameState.currentYokai = null;
+
+  gameState.partyHP = gameState.maxPartyHP;
 
   // MUST be an object, not an array
   gameState.spellHands = {};
@@ -45,7 +50,12 @@ export function advanceRound() {
  * @param {number} overflowDamage
  * @returns {boolean} true if all players are defeated
  */
-export function resolvePlayerDamage(playerDamage) {
-  applyPlayerDamage(gameState.players, playerDamage);
-  return areAllPlayersDefeated(gameState.players);
+export function resolvePartyDamage(damage) {
+  gameState.partyHP -= damage;
+  if (gameState.partyHP < 0) {
+    gameState.partyHP = 0;
+  }
+
+  return gameState.partyHP === 0;
 }
+
