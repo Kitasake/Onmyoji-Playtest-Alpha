@@ -35,3 +35,16 @@ export function qualifiesForElementBonus(spell, yokai) {
 
   return false;
 }
+
+export const strengthMap = {
+  Fire: "Ice",
+  Ice: "Lightning",
+  Lightning: "Wind",
+  Wind: "Fire"
+};
+
+export function isWeakAgainst(spellElement, yokaiElement) {
+  // spell is weak if yokai is strong against it
+  return strengthMap[yokaiElement] === spellElement;
+}
+
