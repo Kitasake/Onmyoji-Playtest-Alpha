@@ -41,6 +41,35 @@
       padding: 8px;
       overflow-x: auto;
     }
+
+    .encyclopedia {
+  position: fixed;
+  top: 10%;
+  right: 5%;
+  width: 90%;
+  max-width: 420px;
+  max-height: 80%;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  padding: 12px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.encyclopedia-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.encyclopedia-entry {
+  border-bottom: 1px solid #ddd;
+  padding: 6px 0;
+  font-size: 14px;
+}
+
   </style>
 </head>
 
@@ -90,11 +119,22 @@
     <div id="clueInfo"></div>
   </div>
 
-   <!-- YOKAI ENCYCLOPEDIA -->
-  <div class="panel">
-    <h2>Yokai Encyclopedia</h2>
-    <div id="encyclopedia-list"></div>
+  <!-- YOKAI ENCYCLOPEDIA TOGGLE -->
+<div class="panel">
+  <button id="toggleEncyclopediaBtn">
+    📖 Yokai Encyclopedia
+  </button>
+</div>
+
+<!-- ENCYCLOPEDIA OVERLAY -->
+<div id="encyclopediaOverlay" class="encyclopedia hidden">
+  <div class="encyclopedia-header">
+    <strong>Yokai Encyclopedia</strong>
+    <button id="closeEncyclopediaBtn">✕</button>
   </div>
+
+  <div id="encyclopedia-list"></div>
+</div>
 
   <!-- SPELL SELECTION -->
   <div class="panel">
@@ -183,6 +223,20 @@ difficultyPanel
       renderRound();
     })();
 **/
+
+
+    const toggleBtn = document.getElementById("toggleEncyclopediaBtn");
+    const closeBtn = document.getElementById("closeEncyclopediaBtn");
+    const overlay = document.getElementById("encyclopediaOverlay");
+
+    toggleBtn.onclick = async () => {
+      overlay.classList.toggle("hidden");
+      await renderEncyclopedia();
+    };
+
+    closeBtn.onclick = () => {
+      overlay.classList.add("hidden");
+    };
 
     submitBtn.onclick = async () => {
   const submittedSpells = [];
