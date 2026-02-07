@@ -55,3 +55,7 @@ export function revealYokaiInfo(yokai, round) {
 
   savePlayerEncyclopedia();
 }
+
+export function resetPlayerEncyclopedia() {
+  localStorage.removeItem("onmyoji_player_encyclopedia");
+}
