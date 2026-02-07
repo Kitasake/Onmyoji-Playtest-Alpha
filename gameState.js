@@ -30,12 +30,15 @@ export function initGame(playerCount = 4, options = {}) {
   gameState.players = createPlayers(playerCount);
   gameState.currentYokai = null;
 
-  gameState.partyHP = gameState.maxPartyHP;
+  gameState.maxPartyHP = partyHP;
+  gameState.partyHP = partyHP;
 
   // MUST be an object, not an array
   gameState.spellHands = {};
   gameState.selectedSpells = {};
   gameState.lastCombatResult = null;
+  gameState.gameOver = false;
+  gameState.victory = false;
 }
 
 
