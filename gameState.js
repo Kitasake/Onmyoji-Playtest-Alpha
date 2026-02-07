@@ -1,7 +1,7 @@
 // gameState.js
 // Central source of truth for the playtest app
 
-import { createPlayers, applyOverflowDamage, areAllPlayersDefeated } from "./logic/playerState.js";
+import { createPlayers, applyPlayerDamage, areAllPlayersDefeated } from "./logic/playerState.js";
 
 export const gameState = {
   round: 1,
@@ -45,7 +45,7 @@ export function advanceRound() {
  * @param {number} overflowDamage
  * @returns {boolean} true if all players are defeated
  */
-export function resolvePlayerDamage(overflowDamage) {
-  applyOverflowDamage(gameState.players, overflowDamage);
+export function resolvePlayerDamage(playerDamage) {
+  applyplayerDamage(gameState.players, playerDamage);
   return areAllPlayersDefeated(gameState.players);
 }
