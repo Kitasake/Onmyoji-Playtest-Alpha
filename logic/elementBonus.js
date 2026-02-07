@@ -13,7 +13,7 @@ const strengthMap = {
  * @param {Object} yokai
  * @returns {number}
  */
-export function getElementBonusDice(spell, yokai) {
+export function qualifiesForElementBonus(spell, yokai) {
   const spellElement = spell.element;
   const yokaiElement = yokai.element;
 
