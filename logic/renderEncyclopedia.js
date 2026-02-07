@@ -1,17 +1,20 @@
 // renderEncyclopedia.js
-
-import { loadYokaiEncyclopedia } from "../logic/yokaiSelection.js";
+import { loadYokaiEncyclopedia } from "./yokaiSelection.js";
 import { playerEncyclopedia } from "../data/playerEncyclopedia.js";
+
+let cachedYokaiData = null;
 
 export async function renderEncyclopedia() {
   const container = document.getElementById("encyclopedia-list");
   if (!container) return;
 
-  const yokaiData = await loadYokaiEncyclopedia();
+  if (!cachedYokaiData) {
+    cachedYokaiData = await loadYokaiEncyclopedia();
+  }
 
   container.innerHTML = "";
 
-  yokaiData.forEach(yokai => {
+  cachedYokaiData.forEach(yokai => {
     const knowledge = playerEncyclopedia[yokai.name];
     if (!knowledge) return;
 
@@ -20,11 +23,9 @@ export async function renderEncyclopedia() {
 
     div.innerHTML = `
       <strong>${knowledge.discovered ? yokai.name : "???"}</strong><br>
-
       Area: ${knowledge.knownClues.area ? yokai.area : "???"}<br>
       Season: ${knowledge.knownClues.season ? yokai.season : "???"}<br>
       Weather: ${knowledge.knownClues.weather ? yokai.weather : "???"}<br>
-
       <em>HP by Round</em><br>
       R1: ${knowledge.knownHP.r1 ? yokai.hp.r1 : "???"}<br>
       R2: ${knowledge.knownHP.r2 ? yokai.hp.r2 : "???"}<br>
