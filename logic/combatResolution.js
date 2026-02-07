@@ -55,7 +55,7 @@ export function resolveCombat(yokai, playerActions, roundNumber) {
 
   const netDamageToYokai = Math.max(0, totalAttackDamage + totalDefense);
   const remainingHP = Math.max(0, yokaiHP - netDamageToYokai);
-  const overflowDamage = Math.max(0, netDamageToYokai - yokaiHP);
+  
 
   return {
     yokai: yokai.name,
@@ -65,7 +65,6 @@ export function resolveCombat(yokai, playerActions, roundNumber) {
     totalDefense,
     netDamageToYokai,
     remainingHP,
-    overflowDamage,
     actionResults
   };
 }
