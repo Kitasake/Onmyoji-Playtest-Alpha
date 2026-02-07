@@ -1,3 +1,4 @@
+// dice.js
 export function rollDice(diceString, bonusDice = 0) {
   const [count, sides] = diceString.split("d").map(Number);
   const totalDice = count + bonusDice;
