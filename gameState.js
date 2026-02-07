@@ -24,7 +24,8 @@ export const gameState = {
  * Initializes a new game
  * @param {number} playerCount
  */
-export function initGame(playerCount = 4) {
+export function initGame(playerCount = 4, options = {}) {
+  const { partyHP = 80 } = options;
   gameState.round = 1;
   gameState.players = createPlayers(playerCount);
   gameState.currentYokai = null;
