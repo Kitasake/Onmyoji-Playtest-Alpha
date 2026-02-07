@@ -1,7 +1,7 @@
 //renderEncyclopedia.js
 
-import yokaiData from "./yokaiEncyclopedia.json";
-import { playerEncyclopedia } from "./playerEncyclopedia.js";
+import yokaiData from "../data/yokaiEncyclopedia.json";
+import { playerEncyclopedia } from "../data/playerEncyclopedia.js";
 
 export function renderEncyclopedia() {
   const container = document.getElementById("encyclopedia-list");
