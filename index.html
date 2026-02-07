@@ -221,7 +221,6 @@ difficultyPanel
     const roundInfo = document.getElementById("roundInfo");
     const clueInfo = document.getElementById("clueInfo");
     const submitBtn = document.getElementById("submitSpellsBtn");
-    const combatPanel = document.getElementById("combatPanel");
     const combatResults = document.getElementById("combatResults");
     const nextRoundBtn = document.getElementById("nextRoundBtn");
 
@@ -309,11 +308,14 @@ if (selectedIndexes.length === 0) return;
 
     
     nextRoundBtn.onclick = async () => {
-      combatPanel.classList.add("hidden");
-      await startRound();
-      renderRound();
-      renderPartyHP();
-    };
+  // Hide the combat overlay
+  combatOverlay.classList.add("hidden");
+
+  await startRound();
+  renderRound();
+  renderPartyHP();
+};
+
 
     function renderRound() {
       roundInfo.textContent = `Round ${gameState.round}`;
@@ -427,7 +429,7 @@ if (selectedIndexes.length === 0) return;
 
   // Hide overlays/panels
   document.getElementById("gameOverPanel").classList.add("hidden");
-  document.getElementById("combatPanel").classList.add("hidden");
+  document.getElementById("combatOverlay").classList.add("hidden");
   document.getElementById("encyclopediaOverlay").classList.add("hidden");
 
   // Optional: clear combat text
