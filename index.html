@@ -164,8 +164,9 @@ difficultyPanel
   initPlayerEncyclopedia();   // ← ADD THIS
   await startRound();
   renderRound();
-  renderEncyclopedia();       // ← ADD THIS
-};
+  await renderEncyclopedia();       // ← ADD THIS
+ };
+});
 
     
     const roundInfo = document.getElementById("roundInfo");
@@ -226,7 +227,7 @@ combatResults.textContent =
       if (gameState.gameOver) {
         showGameOverScreen(gameState.victory);
       }
-      renderEncyclopedia();
+      await renderEncyclopedia();
 
 };
 
@@ -356,7 +357,7 @@ combatResults.textContent =
 
   await startRound();
   renderRound();
-  renderEncyclopedia(); // encyclopedia stays filled
+  await renderEncyclopedia(); // encyclopedia stays filled
 };
 
 
