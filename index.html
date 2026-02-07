@@ -181,7 +181,7 @@ difficultyPanel
   initPlayerEncyclopedia();   // ← ADD THIS
   await startRound();
   renderRound();
-  renderEncyclopedia();       // ← ADD THIS
+  await renderEncyclopedia();       // ← ADD THIS
 };
 
     
@@ -373,7 +373,7 @@ combatResults.textContent =
 
   await startRound();
   renderRound();
-  renderEncyclopedia(); // encyclopedia stays filled
+  await renderEncyclopedia(); // encyclopedia stays filled
 };
 
 
