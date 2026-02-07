@@ -1,3 +1,5 @@
+// spellCatalog.js
+
 export const spellCatalog = {
   Fire: {
     attack: [
@@ -77,4 +79,5 @@ export const spellCatalog = {
 
   // Ice, Wind, Lightning follow same structure
 };
+
 
