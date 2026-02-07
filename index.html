@@ -155,7 +155,9 @@
   </div>
 
   <pre id="combatResults"></pre>
-  <button id="nextRoundBtn">Next Round</button>
+</div>
+  <div class="panel hidden" id="nextRoundPanel">
+    <button id="nextRoundBtn">Next Round</button>
 </div>
 
 
@@ -294,6 +296,7 @@ if (selectedIndexes.length === 0) return;
   renderPartyHP();
 
   combatOverlay.classList.remove("hidden");
+  document.getElementById("nextRoundPanel").classList.remove("hidden");
   combatResults.textContent =
   gameState.lastCombatResult
     ? JSON.stringify(gameState.lastCombatResult, null, 2)
@@ -311,6 +314,7 @@ if (selectedIndexes.length === 0) return;
     nextRoundBtn.onclick = async () => {
   // Hide the combat overlay
   combatOverlay.classList.add("hidden");
+  document.getElementById("nextRoundPanel").classList.add("hidden");
 
   await startRound();
   renderRound();
