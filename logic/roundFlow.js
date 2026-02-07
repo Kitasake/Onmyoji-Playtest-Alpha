@@ -52,7 +52,7 @@ export function submitSpells(submittedSpells) {
   let allPlayersDefeated = false;
   
   if (playerDamage > 0) {
-    resolvePlayerDamage(playerDamage);
+    allPlayersDefeated = resolvePlayerDamage(playerDamage);
   }
    
 
@@ -74,10 +74,8 @@ export function submitSpells(submittedSpells) {
  * @param {boolean} victory
  */
 function endGame(victory) {
-  if (victory) {
-    console.log("VICTORY – The Yokai have been sealed!");
-  } else {
-    console.log("DEFEAT – The Onmyoji have fallen...");
+  gameState.gameOver = true;
+  gameState.victory = victory;
   }
 }
 
