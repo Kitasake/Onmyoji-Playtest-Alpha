@@ -1,6 +1,6 @@
 // roundFlow.js
 
-import { gameState, advanceRound, resolvePlayerDamage } from "../gameState.js";
+import { gameState, advanceRound, resolvePartyDamage } from "../gameState.js";
 import { selectRandomYokai, loadYokaiEncyclopedia } from "./yokaiSelection.js";
 import { generateSpellHand } from "./spellHand.js";
 import { resolveCombat } from "./combatResolution.js";
@@ -47,17 +47,17 @@ export function submitSpells(submittedSpells) {
   gameState.lastCombatResult = combatResult;
   revealCombatResults(combatResult);
 
-  const playerDamage = combatResult.remainingHP;
+  const partyDamage = combatResult.remainingHP;
 
-  let allPlayersDefeated = false;
+  let partyDefeated = false;
   
-  if (playerDamage > 0) {
-    allPlayersDefeated = resolvePlayerDamage(playerDamage);
+  if (partyDamage > 0) {
+    partyDefeated = resolvePartyDamage(partyDamage);
   }
 
-  showPlayerHP();
+  showPartyHP();
 
-  if (allPlayersDefeated) {
+  if (partyDefeated) {
     endGame(false);
     return;
   }
@@ -98,14 +98,9 @@ function revealCombatResults(combatResult) {
   console.log("Remaining HP:", combatResult.remainingHP);
 }
 
-function showPlayerHP() {
-  console.log("=== Player HP ===");
-
-  gameState.players.forEach(player => {
-    const status = player.alive ? "ALIVE" : "DEFEATED";
-    console.log(
-      `${player.name}: ${player.hp} HP (${status})`
+function showPartyHP() {
+  console.log(
+    `Party HP: ${gameState.partyHP} / ${gameState.maxPartyHP}`
     );
-  });
 }
 
