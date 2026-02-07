@@ -45,10 +45,16 @@
 </head>
 
 <body>
-<p id="debug" style="font-family: monospace; color: red;">
-  Booting…
-</p>
-  
+<!-- DIFFICULTY SELECT -->
+<div class="panel" id="difficultyPanel">
+  <h2>Select Difficulty</h2>
+
+  <button data-difficulty="easy">Easy</button>
+  <button data-difficulty="normal">Normal</button>
+  <button data-difficulty="hard">Hard</button>
+</div>
+
+ <div id="gamePanel" class="hidden"> 
   <h1>Onmyoji – Playtest</h1>
 
   <!-- ROUND INFO -->
@@ -82,35 +88,40 @@
     <h2 id="gameOverTitle"></h2>
     <p id="gameOverText"></p>
   </div>
-
+ </div>
 
   
   <!-- MAIN SCRIPT -->
   <script type="module">
     
-  /**const debug = document.getElementById("debug");
-
-  debug.textContent = "JS loaded";
-
-  import { initGame } from "./gameState.js";
-  import { startRound } from "./logic/roundFlow.js";
-
-  (async () => {
-    debug.textContent = "Calling initGame()";
-    initGame(4);
-
-    debug.textContent = "Calling startRound()";
-    await startRound();
-
-    debug.textContent = "SUCCESS: startRound finished";
-  })();
-**/
-
-
-    
+  
+    import { DIFFICULTIES } from "./logic/difficulty.js";
     import { startRound, submitSpells } from "./logic/roundFlow.js";
     import { gameState, initGame } from "./gameState.js";
 
+    const difficultyPanel = document.getElementById("difficultyPanel");
+    const gamePanel = document.getElementById("gamePanel");
+
+difficultyPanel
+  .querySelectorAll("button")
+  .forEach(btn => {
+    btn.onclick = async () => {
+      const key = btn.dataset.difficulty;
+      const difficulty = DIFFICULTIES[key];
+
+      difficultyPanel.classList.add("hidden");
+      gamePanel.classList.remove("hidden");
+
+      initGame(4, {
+        partyHP: difficulty.partyHP
+      });
+
+      await startRound();
+      renderRound();
+    };
+  });
+
+    
     const roundInfo = document.getElementById("roundInfo");
     const clueInfo = document.getElementById("clueInfo");
     const submitBtn = document.getElementById("submitSpellsBtn");
@@ -119,12 +130,12 @@
     const nextRoundBtn = document.getElementById("nextRoundBtn");
 
     
-    (async function bootGame() {
+  /**  (async function bootGame() {
       initGame(4);
       await startRound();
       renderRound();
     })();
-
+**/
 
     submitBtn.onclick = () => {
   const submittedSpells = [];
