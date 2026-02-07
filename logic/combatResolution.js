@@ -26,10 +26,7 @@ export function resolveCombat(yokai, playerActions, roundNumber) {
     const isDefense = spell.type === "defense";
 
     let diceExpression = spell.dice;
-    let bonusDice = 0;
-
-    if (isAttack) {
-      bonusDice = getElementBonusDice(spell, yokai);
+    let bonusDice = getElementBonusDice(spell, yokai);
     }
 
     const rollResult = rollDice(diceExpression, bonusDice);
