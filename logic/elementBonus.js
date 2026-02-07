@@ -22,7 +22,7 @@ export function getElementBonusDice(spell, yokai) {
     spell.type === "attack" &&
     strengthMap[spellElement] === yokaiElement
   ) {
-    return 1;
+    return true;
   }
 
   // DEFENSE: Element matches Yokai
@@ -30,8 +30,8 @@ export function getElementBonusDice(spell, yokai) {
     spell.type === "defense" &&
     spellElement === yokaiElement
   ) {
-    return 1;
+    return true;
   }
 
-  return 0;
+  return false;
 }
