@@ -77,7 +77,7 @@ function endGame(victory) {
   gameState.gameOver = true;
   gameState.victory = victory;
   }
-}
+
 
 /**
  * UI HOOKS (to be implemented in HTML)
