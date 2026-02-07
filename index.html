@@ -254,6 +254,27 @@ combatResults.textContent =
   renderSpellHands();
 }
 
+    function showGameOverScreen(victory) {
+  // Hide main panels
+  document.querySelectorAll(".panel").forEach(p =>
+    p.classList.add("hidden")
+  );
+
+  const panel = document.getElementById("gameOverPanel");
+  const title = document.getElementById("gameOverTitle");
+  const text = document.getElementById("gameOverText");
+
+  title.textContent = victory
+    ? "Victory – The Yokai have been sealed!"
+    : "Defeat – The Onmyoji have fallen…";
+
+  text.textContent = victory
+    ? "Through teamwork and mastery of the elements, the Yokai has been defeated."
+    : "The Yokai overwhelms the ritual. Darkness spreads once more.";
+
+  panel.classList.remove("hidden");
+}
+
 
   </script>
 
