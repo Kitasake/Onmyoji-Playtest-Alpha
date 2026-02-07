@@ -17,7 +17,8 @@ export const gameState = {
   selectedSpells: {},
 
   // Used by some UI modules
-  lastCombatResult: null
+  lastCombatResult: null,
+  rules: {}
 };
 
 /**
@@ -25,11 +26,15 @@ export const gameState = {
  * @param {number} playerCount
  */
 export function initGame(playerCount = 4, options = {}) {
-  const { partyHP = 80 } = options;
+  const { partyHP = 80, rules = BASE_RULES } = options;
   gameState.round = 1;
   gameState.players = createPlayers(playerCount);
   gameState.currentYokai = null;
 
+  gameState.rules = {
+    ...BASE_RULES,
+    ...rules
+  };
   gameState.maxPartyHP = partyHP;
   gameState.partyHP = partyHP;
 
