@@ -46,6 +46,6 @@ export function advanceRound() {
  * @returns {boolean} true if all players are defeated
  */
 export function resolvePlayerDamage(playerDamage) {
-  applyplayerDamage(gameState.players, playerDamage);
+  applyPlayerDamage(gameState.players, playerDamage);
   return areAllPlayersDefeated(gameState.players);
 }
