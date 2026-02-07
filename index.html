@@ -144,11 +144,20 @@
   </div>
 
   <!-- COMBAT RESULTS -->
-  <div class="panel hidden" id="combatPanel">
-    <h2>Combat Results</h2>
-    <pre id="combatResults"></pre>
-    <button id="nextRoundBtn">Next Round</button>
+  <div class="panel">
+  <button id="toggleCombatBtn">⚔️ Combat Results</button>
+</div>
+
+<div id="combatOverlay" class="encyclopedia hidden">
+  <div class="encyclopedia-header">
+    <strong>Combat Results</strong>
+    <button id="closeCombatBtn">✕</button>
   </div>
+
+  <pre id="combatResults"></pre>
+  <button id="nextRoundBtn">Next Round</button>
+</div>
+
 
   <!-- GAME OVER -->
   <div class="panel hidden" id="gameOverPanel">
@@ -228,6 +237,18 @@ difficultyPanel
     const toggleBtn = document.getElementById("toggleEncyclopediaBtn");
     const closeBtn = document.getElementById("closeEncyclopediaBtn");
     const overlay = document.getElementById("encyclopediaOverlay");
+    const combatOverlay = document.getElementById("combatOverlay");
+    const toggleCombatBtn = document.getElementById("toggleCombatBtn");
+    const closeCombatBtn = document.getElementById("closeCombatBtn");
+
+    toggleCombatBtn.onclick = () => {
+      combatOverlay.classList.toggle("hidden");
+    };
+
+    closeCombatBtn.onclick = () => {
+      combatOverlay.classList.add("hidden");
+    };
+
 
     toggleBtn.onclick = async () => {
       overlay.classList.toggle("hidden");
@@ -272,8 +293,8 @@ if (selectedIndexes.length === 0) return;
   submitSpells(submittedSpells);
   renderPartyHP();
 
-  combatPanel.classList.remove("hidden");
-combatResults.textContent =
+  combatOverlay.classList.remove("hidden");
+  combatResults.textContent =
   gameState.lastCombatResult
     ? JSON.stringify(gameState.lastCombatResult, null, 2)
     : "No combat results";
@@ -379,10 +400,7 @@ combatResults.textContent =
 
   
     function showGameOverScreen(victory) {
-  // Hide main panels
-  document.querySelectorAll(".panel").forEach(p =>
-    p.classList.add("hidden")
-  );
+  gamePanel.classList.add("hidden");
 
   const panel = document.getElementById("gameOverPanel");
   const title = document.getElementById("gameOverTitle");
@@ -399,20 +417,23 @@ combatResults.textContent =
   panel.classList.remove("hidden");
 }
 
-    document.getElementById("restartGameBtn").onclick = async () => {
-  // Reset ONLY the game state
-  initGame(4, {
-    partyHP: gameState.maxPartyHP
-  });
 
-  // Reset UI
+   document.getElementById("restartGameBtn").onclick = () => {
+  // Hide game UI
+  gamePanel.classList.add("hidden");
+
+  // Show difficulty selection again
+  difficultyPanel.classList.remove("hidden");
+
+  // Hide overlays/panels
   document.getElementById("gameOverPanel").classList.add("hidden");
   document.getElementById("combatPanel").classList.add("hidden");
+  document.getElementById("encyclopediaOverlay").classList.add("hidden");
 
-  await startRound();
-  renderRound();
-  await renderEncyclopedia(); // encyclopedia stays filled
+  // Optional: clear combat text
+  document.getElementById("combatResults").textContent = "";
 };
+
 
 
   </script>
