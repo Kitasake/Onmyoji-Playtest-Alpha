@@ -8,7 +8,7 @@ export const gameState = {
   maxRounds: 4,
 
   partyHP: 80,
-  maxPartyHP: 80;
+  maxPartyHP: 80,
 
   players: [],
   currentYokai: null,
