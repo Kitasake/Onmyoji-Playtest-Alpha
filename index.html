@@ -114,7 +114,7 @@
   <div class="panel hidden" id="gameOverPanel">
     <h2 id="gameOverTitle"></h2>
     <p id="gameOverText"></p>
-    <button id="resetGameBtn">Restart Game</button>
+    <button id="restartGameBtn">Restart Game</button>
   </div>
  </div>
 
@@ -160,23 +160,6 @@ difficultyPanel
         partyHP: difficulty.partyHP,
         rules: collectRules()
       });
-
-      await startRound();
-      renderRound();
-      renderPartyHP();
-    };
-  });
-
-    btn.onclick = async () => {
-  const key = btn.dataset.difficulty;
-  const difficulty = DIFFICULTIES[key];
-
-  difficultyPanel.classList.add("hidden");
-  gamePanel.classList.remove("hidden");
-
-  initGame(4, {
-    partyHP: difficulty.partyHP
-  });
 
   initPlayerEncyclopedia();   // ← ADD THIS
   await startRound();
