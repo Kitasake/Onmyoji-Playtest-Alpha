@@ -27,7 +27,7 @@ export function resolveCombat(yokai, playerActions, roundNumber) {
 
     let diceExpression = spell.dice;
     let bonusDice = getElementBonusDice(spell, yokai);
-    }
+    
 
     const rollResult = rollDice(diceExpression, bonusDice);
 
