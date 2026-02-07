@@ -54,7 +54,8 @@ export function submitSpells(submittedSpells) {
   if (playerDamage > 0) {
     allPlayersDefeated = resolvePlayerDamage(playerDamage);
   }
-   
+
+  showPlayerHP();
 
   if (allPlayersDefeated) {
     endGame(false);
