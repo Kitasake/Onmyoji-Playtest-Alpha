@@ -45,7 +45,4 @@ export function advanceRound() {
  * @param {number} overflowDamage
  * @returns {boolean} true if all players are defeated
  */
-export function resolvePlayerDamage(overflowDamage) {
-  applyOverflowDamage(gameState.players, overflowDamage);
-  return areAllPlayersDefeated(gameState.players);
-}
+
