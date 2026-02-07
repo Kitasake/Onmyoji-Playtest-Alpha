@@ -126,6 +126,8 @@
     import { startRound, submitSpells } from "./logic/roundFlow.js";
     import { gameState, initGame } from "./gameState.js";
     import { RULES } from "./logic/rulesets.js";
+    import { renderEncyclopedia } from "./logic/renderEncyclopedia.js";
+    import { initPlayerEncyclopedia } from "./logic/playerEncyclopedia.js";
 
 function collectRules() {
   const selected = {};
@@ -163,6 +165,23 @@ difficultyPanel
       renderPartyHP();
     };
   });
+
+    btn.onclick = async () => {
+  const key = btn.dataset.difficulty;
+  const difficulty = DIFFICULTIES[key];
+
+  difficultyPanel.classList.add("hidden");
+  gamePanel.classList.remove("hidden");
+
+  initGame(4, {
+    partyHP: difficulty.partyHP
+  });
+
+  initPlayerEncyclopedia();   // ← ADD THIS
+  await startRound();
+  renderRound();
+  renderEncyclopedia();       // ← ADD THIS
+};
 
     
     const roundInfo = document.getElementById("roundInfo");
@@ -223,6 +242,7 @@ combatResults.textContent =
       if (gameState.gameOver) {
         showGameOverScreen(gameState.victory);
       }
+      renderEncyclopedia();
 
 };
 
