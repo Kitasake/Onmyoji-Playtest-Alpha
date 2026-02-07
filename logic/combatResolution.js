@@ -3,6 +3,7 @@
 
 import { rollDice } from "./dice.js";
 import { qualifiesForElementBonus } from "./elementBonus.js";
+import { gameState } from "../gameState.js";
 
 /**
  * Resolves combat for a single round
