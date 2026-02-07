@@ -95,5 +95,16 @@ function revealCombatResults(combatResult) {
   console.log("Attack:", combatResult.totalAttackDamage);
   console.log("Defense:", combatResult.totalDefense);
   console.log("Remaining HP:", combatResult.remainingHP);
-  console.log("Overflow:", combatResult.overflowDamage);
 }
+
+function showPlayerHP() {
+  console.log("=== Player HP ===");
+
+  gameState.players.forEach(player => {
+    const status = player.alive ? "ALIVE" : "DEFEATED";
+    console.log(
+      `${player.name}: ${player.hp} HP (${status})`
+    );
+  });
+}
+
