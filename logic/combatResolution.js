@@ -3,6 +3,7 @@
 
 import { rollDice } from "./dice.js";
 import { qualifiesForElementBonus } from "./elementBonus.js";
+import { isWeakAgainst } from "./elementBonus.js";
 import { gameState } from "../gameState.js";
 
 /**
@@ -14,7 +15,15 @@ import { gameState } from "../gameState.js";
  */
 export function resolveCombat(yokai, playerActions, roundNumber) {
   const yokaiHP = yokai.hp[`r${roundNumber}`];
+  const hasWeakAttack =
+  gameState.rules.resistancePenalty?.enabled &&
+  playerActions.some(
+    a =>
+      a.spell.type === "attack" &&
+      isWeakAgainst(a.spell.element, yokai.element)
+  );
 
+  let resistanceApplied = false;
   let totalAttackDamage = 0;
   let totalDefense = 0;
   let attackBonusUsed = false;
@@ -28,8 +37,35 @@ export function resolveCombat(yokai, playerActions, roundNumber) {
     const isAttack = spell.type === "attack";
     const isDefense = spell.type === "defense";
 
+    // OPTIONAL RULE #1 — Element-based Defense Restriction
+if (
+  spell.type === "defense" &&
+  gameState.rules.defenseElementRestriction === "match" &&
+  isWeakAgainst(spell.element, yokai.element)
+) {
+  actionResults.push({
+    playerId: action.playerId,
+    spell: spell.name,
+    type: spell.type,
+    ignored: true,
+    reason: "Defense element is weak against Yokai"
+  });
+  return; // skip this spell entirely
+}
+
     let diceExpression = spell.dice;
     let bonusDice = 0;
+    let penaltyDice = 0;
+
+    // Optional Rule #2 - Attack Resistance (-1 die total)
+    if (
+      spell.type === "attack" &&
+      hasWeakAttack &&
+      !resistanceApplied
+      ) {
+      penaltyDice = 1;
+      resistanceApplied = true;
+    }
 
     if (qualifiesForElementBonus(spell, yokai)) {
       if (spell.type === "attack" && !attackBonusUsed) {
@@ -44,7 +80,7 @@ export function resolveCombat(yokai, playerActions, roundNumber) {
     }
     
 
-    const rollResult = rollDice(diceExpression, bonusDice);
+    const rollResult = rollDice(diceExpression, bonusDice - penaltyDice);
 
     if (isAttack) {
       totalAttackDamage += rollResult.total;
@@ -60,6 +96,7 @@ export function resolveCombat(yokai, playerActions, roundNumber) {
       type: spell.type,
       dice: diceExpression,
       bonusDice,
+      penaltyDice,
       roll: rollResult.rolls,
       total: rollResult.total
     });
@@ -68,34 +105,9 @@ export function resolveCombat(yokai, playerActions, roundNumber) {
   const netDamageToYokai = Math.max(0, totalAttackDamage + totalDefense);
   const remainingHP = Math.max(0, yokaiHP - netDamageToYokai);
 
-  function resolveDefense(spells, yokai) {
-  return spells.filter(spell => {
-    if (!spell.isDefense) return false;
-
-    const rule = gameState.rules.defenseElementRestriction;
-
-    if (rule === "none") return true;
-    if (rule === "match") return spell.element === yokai.element;
-
-    return true;
-  });
-}
-
-  function applyResistance(totalAttackDice, spells, yokai) {
-  const rule = gameState.rules.resistancePenalty;
-
-  if (!rule.enabled) return totalAttackDice;
-
-  const hasWeakAttack = spells.some(
-    s => s.isAttack && s.element === yokai.strongAgainst
-  );
-
-  if (!hasWeakAttack) return totalAttackDice;
-
-  return Math.max(0, totalAttackDice - rule.removeDice);
-}
-
   
+
+   
 
   return {
     yokai: yokai.name,
