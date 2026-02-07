@@ -24,14 +24,14 @@ export function createPlayers(playerCount = 4, startingHP = 20) {
  * @param {Array} players
  * @param {number} overflowDamage
  */
-export function applyOverflowDamage(players, overflowDamage) {
-  if (overflowDamage <= 0) return;
+export function applyPlayerDamage(players, playerDamage) {
+  if (playerDamage <= 0) return;
 
   const livingPlayers = players.filter(p => p.alive);
   if (livingPlayers.length === 0) return;
 
   const damagePerPlayer = Math.ceil(
-    overflowDamage / livingPlayers.length
+    playerDamage / livingPlayers.length
   );
 
   livingPlayers.forEach(player => {
