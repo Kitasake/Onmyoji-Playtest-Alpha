@@ -114,6 +114,7 @@
   <div class="panel hidden" id="gameOverPanel">
     <h2 id="gameOverTitle"></h2>
     <p id="gameOverText"></p>
+    <button id="resetGameBtn">Restart Game</button>
   </div>
  </div>
 
@@ -359,6 +360,21 @@ combatResults.textContent =
 
   panel.classList.remove("hidden");
 }
+
+    document.getElementById("restartGameBtn").onclick = async () => {
+  // Reset ONLY the game state
+  initGame(4, {
+    partyHP: gameState.maxPartyHP
+  });
+
+  // Reset UI
+  document.getElementById("gameOverPanel").classList.add("hidden");
+  document.getElementById("combatPanel").classList.add("hidden");
+
+  await startRound();
+  renderRound();
+  renderEncyclopedia(); // encyclopedia stays filled
+};
 
 
   </script>
