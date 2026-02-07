@@ -4,7 +4,7 @@ const strengthMap = {
   Fire: "Ice",
   Ice : "Lightning",
   Lightning : "Wind",
-  Wind : "Fire
+  Wind : "Fire"
 };
 
 /**
