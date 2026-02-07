@@ -46,7 +46,7 @@ export function submitSpells(submittedSpells) {
     revealYokaiInfo(
       gameState.currentYokai,
       gameState.round
-      );
+      )
   );
 
   gameState.lastCombatResult = combatResult;
