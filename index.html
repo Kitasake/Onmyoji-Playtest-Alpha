@@ -57,6 +57,12 @@
  <div id="gamePanel" class="hidden"> 
   <h1>Onmyoji – Playtest</h1>
 
+  <!-- Party HP --> 
+  <div class="panel">
+    <h2>Party HP</h2>
+    <div id="partyHP"></div>
+  </div>
+
   <!-- ROUND INFO -->
   <div class="panel">
     <h2>Round</h2>
@@ -268,6 +274,12 @@ combatResults.textContent =
   renderSpellHands();
 }
 
+    function renderPartyHP() {
+  document.getElementById("partyHP").textContent =
+    `${gameState.partyHP} / ${gameState.maxPartyHP}`;
+}
+
+  
     function showGameOverScreen(victory) {
   // Hide main panels
   document.querySelectorAll(".panel").forEach(p =>
