@@ -2,7 +2,7 @@
 // Resolves spell effects, dice rolls, and damage vs Yokai
 
 import { rollDice } from "./dice.js";
-import { getElementBonusDice } from "./elementBonus.js";
+import { qualifiesForElementBonus } from "./elementBonus.js";
 
 /**
  * Resolves combat for a single round
