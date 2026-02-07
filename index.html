@@ -124,6 +124,7 @@ difficultyPanel
 
       await startRound();
       renderRound();
+      renderPartyHP();
     };
   });
 
@@ -175,6 +176,7 @@ if (selectedIndexes.length === 0) return;
   );
 
   submitSpells(submittedSpells);
+  renderPartyHP();
 
   combatPanel.classList.remove("hidden");
 combatResults.textContent =
@@ -194,6 +196,7 @@ combatResults.textContent =
       combatPanel.classList.add("hidden");
       await startRound();
       renderRound();
+      renderPartyHP();
     };
 
     function renderRound() {
